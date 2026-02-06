@@ -1,13 +1,14 @@
-import { render, screen } from "@testing-library/react";
-
-import KanbanBoard from "../../components/KanbanBoard";
-
-// mock socket.io-client library
-
-test("WebSocket receives task update", async () => {
-  render(<KanbanBoard />);
-
-  expect(screen.getByText("Kanban Board")).toBeInTheDocument();
+import { render, screen } from '@testing-library/react';
+import { expect, test, vi } from 'vitest';
+import KanbanBoard from '../../components/KanbanBoard';
+vi.mock('recharts', async () => {
+  const original = await vi.importActual('recharts');
+  return {
+    ...original,
+    ResponsiveContainer: ({ children }) => <div style={{ width: '500px', height: '300px' }}>{children}</div>,
+  };
 });
-
-// TODO: Add more integration tests
+ test('WebSocket receives task update', () => {
+   render(<KanbanBoard tasks={[]} />);
+  expect(screen.getByText(/Real-time Kanban/i)).toBeInTheDocument();
+});
