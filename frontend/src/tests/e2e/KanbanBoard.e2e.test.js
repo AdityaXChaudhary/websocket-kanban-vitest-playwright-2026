@@ -1,7 +1,8 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test("User can add a task and see it on the board", async ({ page }) => {
-  await page.goto("http://localhost:3000");
+test('should load the kanban board and show tasks', async ({ page }) => {
 
-  await expect(page.getByText("Real-time Kanban Board")).toBeVisible();
+  await page.goto('http://localhost:3000');
+  await expect(page.locator('h1')).toContainText('Kanban Board');
+  await expect(page.getByText('Task 1: Learn WebSockets')).toBeVisible();
 });

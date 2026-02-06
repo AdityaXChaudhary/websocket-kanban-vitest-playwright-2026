@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
-
-import KanbanBoard from "../../src/components/KanbanBoard.jsx";
+import { expect, test } from "vitest";
+import App from "../../App.jsx"; 
 
 test("renders Kanban board title", () => {
-  render(<KanbanBoard />);
-  expect(screen.getByText("Kanban Board")).toBeInTheDocument();
+  render(<App />);
+  const titleElement = screen.getByText(/Kanban Board/i);
+  expect(titleElement).toBeDefined();
 });
 
-// TODO: Add more unit tests for individual components
+test("renders the tasks", () => {
+  render(<App />);
+  const taskElement = screen.getByText(/Define Project Scope/i);
+  expect(taskElement).toBeDefined();
+});
